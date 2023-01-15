@@ -30,20 +30,11 @@ section .data
     row_separator_len   equ $-row_separator
     new_line            db `\n`
     new_line_len        equ $-new_line
-    clear_board         db `\x1b[2K`
-    clear_board_len     equ $-clear_board
     move_up             db `\x1b[7A`
     move_up_len         equ $-move_up
 
 section .text
 print_board:
-    ; Clear current line
-    ;push    clear_board_len
-    ;push    clear_board
-    ;call    print
-    ;pop edx
-    ;pop edx
-
     ; Move up cursor
     push    move_up_len
     push    move_up
@@ -107,7 +98,6 @@ display_row:
     call    print
     pop     edx
 
-    ; show column 1
     mov     eax, [ebp+8]
     push    eax
     call    print
@@ -117,7 +107,6 @@ display_row:
     call    print
     pop     edx
 
-    ; show column 2
     mov     eax, [ebp+8]
     add     eax, 1
     push    eax
@@ -128,7 +117,6 @@ display_row:
     call    print
     pop     edx
 
-    ; show column 3
     mov     eax, [ebp+8]
     add     eax, 2
     push    eax
