@@ -1,3 +1,5 @@
+; x86-32bit linux assembly
+
 ;--------------------;
 ; print
 ; By: Daniel and Peter
@@ -15,19 +17,25 @@
 ;   the buffer size
 ;--------------------;
 
+;--------------------;
+; Buffer at ebp+8
+; Buffer len at ebp+12
+;--------------------;
 
+; Start to program at print label
 global print
 
 print:
     push    ebp            
     mov     ebp, esp        
 
-    mov     eax, 4                          ; specify stdout syscall
-    mov     ebx, 1                          ; specify stdout file descriptor
-    mov     ecx, [ebp+8]                    ; ebp+8 because that is where the buffer is on the stack
-    mov     edx, [ebp+12]                   ; edp+8 as thats where the buffer size is on the stack
+    mov     eax, 4                          ; Input syscall
+    mov     ebx, 1                          ; STDOUT
+    mov     ecx, [ebp+8]
+    mov     edx, [ebp+12]
     int     0x80                            ; Calling kernel, 32 bit version of syscall
 
+    ; Return
     mov     esp, ebp        
     pop     ebp             
     ret

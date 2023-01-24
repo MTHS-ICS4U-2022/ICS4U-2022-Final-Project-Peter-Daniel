@@ -1,3 +1,5 @@
+; x86-32bit linux assembly
+
 ;--------------------;
 ; input
 ; By: Daniel and Peter
@@ -22,7 +24,16 @@
 ;--------------------;
 
 
+; Start to program at input label
 global input
+
+; For linker
+extern print
+
+section .data
+    ; Reset text colour to normal ANSI code
+    normal_text     db `\x1b[0m`
+    normal_text_len equ $-normal_text
 
 input:
     push    ebp            
@@ -36,5 +47,14 @@ input:
 
     mov     esp, ebp        
     pop     ebp             
+
+    ; Reset colour to normal
+    push    normal_text_len
+    push    normal_text
+    call    print
+    pop     eax
+    pop     eax
+
+    ; Return
     ret 
     

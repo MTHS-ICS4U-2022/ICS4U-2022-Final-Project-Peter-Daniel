@@ -1,3 +1,5 @@
+; x86-32bit linux assembly
+
 ;------------------------;
 ; print_board
 ; By: Daniel and Peter
@@ -21,10 +23,14 @@
 ;   pointer
 ;------------------------;
 
+; Start to program at print_board label
 global print_board
+
+; For linker
 extern print
 
 section .data
+    ; All constants
     column_separator    db "|"
     row_separator       db `-------\n`
     row_separator_len   equ $-row_separator
@@ -32,9 +38,18 @@ section .data
     new_line_len        equ $-new_line
     move_up             db `\x1b[7A`
     move_up_len         equ $-move_up
+    clear_line          db `\x1b[1A\n\n`
+    clear_line_len      equ $-clear_line
 
 section .text
 print_board:
+    ; Clear current line
+    push    clear_line_len
+    push    clear_line
+    call    print
+    pop edx
+    pop edx
+
     ; Move up cursor
     push    move_up_len
     push    move_up
@@ -84,20 +99,24 @@ print_board:
     call    display_row
     pop     eax
     
+    ; Return
     mov     esp, ebp        
     pop     ebp             
     ret 
 
 display_row:
+    ; Display row
     push    ebp            
     mov     ebp, esp
 
     push    byte 1
 
+    ; This prints the pipe symbol for the board
     push    column_separator
     call    print
     pop     edx
 
+    ; Print 1st value in row
     mov     eax, [ebp+8]
     push    eax
     call    print
@@ -107,6 +126,7 @@ display_row:
     call    print
     pop     edx
 
+    ; Print 2nd value in row
     mov     eax, [ebp+8]
     add     eax, 1
     push    eax
@@ -117,6 +137,7 @@ display_row:
     call    print
     pop     edx
 
+    ; Print 3rd value in row
     mov     eax, [ebp+8]
     add     eax, 2
     push    eax
@@ -127,12 +148,14 @@ display_row:
     call    print
     pop     edx
 
+    ; Newline
     push    new_line
     call    print
     pop     edx
     pop     edx
 
     
+    ; Return
     mov     esp, ebp        
     pop     ebp             
     ret
