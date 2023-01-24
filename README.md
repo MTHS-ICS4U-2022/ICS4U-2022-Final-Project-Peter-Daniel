@@ -1,7 +1,6 @@
 # TIC TAC TOE - x86-32 ASM
 ## By: Peter & Daniel
-
-[![N|Solid](https://img.shields.io/badge/ASSEMBLY-X86%20|%2032%20bit%20|%20Linux-%)](https://faculty.nps.edu/cseagle/assembly/sys_call.html)
+[![platforms](https://img.shields.io/badge/ASSEMBLY-x86_32|Linux-green.svg)](https://faculty.nps.edu/cseagle/assembly/sys_call.html)
 
 ## Installation/Building
 
@@ -25,4 +24,4 @@ To run it after building it:
 - Input q to quit
 ---
 ## Example
-<a href="https://github.com/TINYT1ME/LogicCircuit/"><img src="https://s3.gifyu.com/images/tic_tac_toe.gif"title="Example"></a>
+<a href="https://github.com/daniel-pawelko-ics20/ICS4U-2022-Final-Project-Peter-Daniel/"><img src="https://s3.gifyu.com/images/tic_tac_toe.gif" title="Example"></a>
